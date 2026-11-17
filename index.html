@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алексей Волков — Профессиональный фотограф</title>
+    <style>
+        /* === ПЕРЕМЕННЫЕ И БАЗОВЫЕ НАСТРОЙКИ === */
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #161616;
+            --bg-card: #1f1f1f;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --accent: #d4af37;
+            --accent-hover: #f3ce56;
+            --border-color: #2c2c2c;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-size: 1rem;
+        }
+
+        /* === НАВИГАЦИЯ === */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* === ГЛАВНЫЙ ЭКРАН (HERO) === */
+        .hero {
+            height: 100vh;
+            background: radial-gradient(circle at center, #25221a 0%, #0d0d0d 75%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* === ОБО МНЕ === */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img {
+            position: relative;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item h4 {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        .stat-item span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* === ПОРТФОЛИО === */
+        .portfolio {
+            background-color: var(--bg-secondary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            height: 380px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .gallery-item.hide {
+            display: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(13, 13, 13, 0.72);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h4 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+
+        .gallery-overlay span {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* === УСЛУГИ И ЦЕНЫ === */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            padding: 40px 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .service-price {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .service-features {
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .service-features li {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* === КОНТАКТЫ === */
+        .contact {
+            background-color: var(--bg-secondary);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+        }
+
+        .info-item span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-status {
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* === ФУТЕР === */
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* === ЛАЙТБОКС (МОДАЛЬНОЕ ОКНО ДЛЯ ФОТО) === */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent);
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                border-left: 1px solid var(--border-color);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .burger {
+                display: block;
+                z-index: 1001;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">VOLKOV<span>.</span></a>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#portfolio">Портфолио</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="burger" id="burger">☰</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Искусство в каждом кадре</h1>
+            <p>Портретная, репортажная и художественная фотография. Сохраняю искренние эмоции и атмосферу момента.</p>
+            <a href="#portfolio" class="btn">Смотреть работы</a>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img">
+                    <img data-placeholder="Портрет фотографа" data-c1="#1c1c1c" data-c2="#38301d" alt="Фотограф за работой">
+                </div>
+                <div class="about-text">
+                    <h3>Привет, я Алексей Волков</h3>
+                    <p>Более 7 лет я занимаюсь профессиональной фотографией. Для меня камера — это способ остановить время и показать красоту в естественных деталях, игре света и тени.</p>
+                    <p>Я не прошу людей «сделать лицо попроще» — я создаю комфортную атмосферу на съемке, чтобы в кадре оставались только настоящие эмоции и живая история.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h4>7+</h4>
+                            <span>Лет опыта</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4>350+</h4>
+                            <span>Съемок</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4>100%</h4>
+                            <span>Отдача</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section-padding portfolio">
+        <div class="container">
+            <h2 class="section-title">Портфолио</h2>
+            <p class="section-subtitle">Избранные серии последних лет (замените на свои снимки)</p>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Все работы</button>
+                <button class="filter-btn" data-filter="portrait">Портреты</button>
+                <button class="filter-btn" data-filter="wedding">Свадьбы</button>
+                <button class="filter-btn" data-filter="urban">Урбан</button>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" data-category="portrait">
+                    <img data-placeholder="Портрет · 01" data-c1="#1a1a1a" data-c2="#3a2e1a" alt="Студийный портрет">
+                    <div class="gallery-overlay">
+                        <h4>Глубина взгляда</h4>
+                        <span>Портрет</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="wedding">
+                    <img data-placeholder="Свадьба · 02" data-c1="#201d1a" data-c2="#423624" alt="Свадебная съемка">
+                    <div class="gallery-overlay">
+                        <h4>История двоих</h4>
+                        <span>Свадьба</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="urban">
+                    <img data-placeholder="Урбан · 03" data-c1="#12171d" data-c2="#222f3e" alt="Ночной город">
+                    <div class="gallery-overlay">
+                        <h4>Огни мегаполиса</h4>
+                        <span>Урбан</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="portrait">
+                    <img data-placeholder="Портрет · 04" data-c1="#1d1b1b" data-c2="#382c2c" alt="Мужской портрет">
+                    <div class="gallery-overlay">
+                        <h4>Характер</h4>
+                        <span>Портрет</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="urban">
+                    <img data-placeholder="Урбан · 05" data-c1="#16191c" data-c2="#2c353d" alt="Архитектура">
+                    <div class="gallery-overlay">
+                        <h4>Ритм улиц</h4>
+                        <span>Урбан</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="wedding">
+                    <img data-placeholder="Свадьба · 06" data-c1="#1f1c18" data-c2="#3f3526" alt="Свадебный танец">
+                    <div class="gallery-overlay">
+                        <h4>Нежность</h4>
+                        <span>Свадьба</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Услуги</h2>
+            <p class="section-subtitle">Прозрачные пакеты для любых задач</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Индивидуальная</h3>
+                    <div class="service-price">12 000 ₽</div>
+                    <ul class="service-features">
+                        <li>2 часа съемки в студии или городе</li>
+                        <li>Помощь в подборе образа и локации</li>
+                        <li>30 фото в авторской ретуши</li>
+                        <li>Все удачные кадры в цветокоррекции</li>
+                        <li>Готовность через 7 дней</li>
+                    </ul>
+                    <a href="#contact" class="btn">Забронировать</a>
+                </div>
+
+                <div class="service-card">
+                    <h3>Love Story / Семья</h3>
+                    <div class="service-price">18 000 ₽</div>
+                    <ul class="service-features">
+                        <li>3 часа съемки на 2 локациях</li>
+                        <li>Разработка концепции съемки</li>
+                        <li>50 фото в авторской ретуши</li>
+                        <li>Закрытая онлайн-галерея для близких</li>
+                        <li>Готовность через 10 дней</li>
+                    </ul>
+                    <a href="#contact" class="btn">Забронировать</a>
+                </div>
+
+                <div class="service-card">
+                    <h3>Свадебный день</h3>
+                    <div class="service-price">45 000 ₽</div>
+                    <ul class="service-features">
+                        <li>До 8 часов репортажной и постановочной съемки</li>
+                        <li>Анонс из 30 фото на следующий день</li>
+                        <li>От 400 обработанных фотографий</li>
+                        <li>Консультация по таймингу дня</li>
+                        <li>Готовность через 21 день</li>
+                    </ul>
+                    <a href="#contact" class="btn">Забронировать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding contact">
+        <div class="container">
+            <h2 class="section-title">Связаться со мной</h2>
+            <p class="section-subtitle">Обсудим идею вашей будущей съемки</p>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Контакты</h3>
+                    <p>Оставьте заявку в форме, и я свяжусь с вами в течение нескольких часов, чтобы обсудить детали и свободную дату.</p>
+                    <div class="info-item">
+                        <span>Телефон / Telegram</span>
+                        <p>+7 (999) 123-45-67</p>
+                    </div>
+                    <div class="info-item">
+                        <span>Email</span>
+                        <p>hello@volkovphoto.ru</p>
+                    </div>
+                    <div class="info-item">
+                        <span>Локация</span>
+                        <p>Москва и выезд по миру</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Телефон или ник в Telegram" required>
+                    </div>
+                    <div class="form-group">
+                        <select>
+                            <option value="portrait">Индивидуальная съемка</option>
+                            <option value="lovestory">Love Story / Семья</option>
+                            <option value="wedding">Свадебный день</option>
+                            <option value="other">Другой формат</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Расскажите кратко о вашей идее или желаемой дате"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить заявку</button>
+                    <p class="form-status" id="formStatus">Спасибо! Ваша заявка отправлена. Скоро свяжусь с вами.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Алексей Волков. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img src="" alt="Увеличенное фото" id="lightboxImg">
+    </div>
+
+    <script>
+        // 0. Генерация встроенных превью-заглушек без внешних ссылок
+        document.querySelectorAll('img[data-placeholder]').forEach(img => {
+            const label = img.getAttribute('data-placeholder');
+            const c1 = img.getAttribute('data-c1') || '#181818';
+            const c2 = img.getAttribute('data-c2') || '#2e2718';
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="900" viewBox="0 0 800 900">
+                <defs>
+                    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="${c1}"/>
+                        <stop offset="100%" stop-color="${c2}"/>
+                    </linearGradient>
+                </defs>
+                <rect width="800" height="900" fill="url(#g)"/>
+                <rect x="40" y="40" width="720" height="820" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="2"/>
+                <circle cx="400" cy="410" r="65" fill="none" stroke="#d4af37" stroke-opacity="0.6" stroke-width="2"/>
+                <circle cx="400" cy="410" r="24" fill="none" stroke="#d4af37" stroke-opacity="0.6" stroke-width="2"/>
+                <text x="400" y="530" fill="#d4af37" font-family="sans-serif" font-size="26" letter-spacing="4" text-anchor="middle">${label.toUpperCase()}</text>
+            </svg>`;
+            img.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        });
+
+        // 1. Изменение шапки при прокрутке
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Мобильное меню
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                burger.textContent = '☰';
+            });
+        });
+
+        // 3. Фильтрация галереи
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.classList.remove('hide');
+                    } else {
+                        item.classList.add('hide');
+                    }
+                });
+            });
+        });
+
+        // 4. Лайтбокс для просмотра фотографий
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').src;
+                lightboxImg.src = imgSrc;
+                lightbox.classList.add('active');
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+        };
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // 5. Имитация отправки формы
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formStatus.style.display = 'block';
+            contactForm.reset();
+            setTimeout(() => {
+                formStatus.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
